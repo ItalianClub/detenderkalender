@@ -9,7 +9,6 @@
 <body>
     <h1>Tenderkalender</h1>
 
-    <!-- Formulier om een nieuwe tender toe te voegen -->
     <form id="tenderForm">
         <input type="text" id="name" placeholder="Tendernaam" required>
         <input type="text" id="client" placeholder="Opdrachtgever" required>
@@ -32,7 +31,6 @@
         <button type="submit">Toevoegen</button>
     </form>
 
-    <!-- Tabel met bestaande tenders -->
     <table>
         <thead>
             <tr>
@@ -48,9 +46,7 @@
                 <th>Acties</th>
             </tr>
         </thead>
-        <tbody id="tenderTableBody">
-            <!-- Dynamische inhoud komt hier -->
-        </tbody>
+        <tbody id="tenderTableBody"></tbody>
     </table>
 
     <script src="script.js"></script>
