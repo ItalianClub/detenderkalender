@@ -1,3 +1,4 @@
+/* Algemene stijl voor de pagina */
 body {
     font-family: Arial, sans-serif;
     margin: 20px;
@@ -9,10 +10,11 @@ h1 {
     color: #333;
 }
 
+/* Stijl voor het formulier */
 form {
     margin-bottom: 20px;
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 10px;
     background: #fff;
     padding: 15px;
@@ -27,23 +29,32 @@ form input, form select, form textarea, form button {
     border-radius: 5px;
 }
 
+form textarea {
+    resize: vertical;
+    height: 60px;
+}
+
 form button {
+    grid-column: span 2; /* Knop neemt twee kolommen in bij smalle schermen */
     background-color: #007BFF;
     color: white;
     border: none;
     cursor: pointer;
+    font-size: 16px;
 }
 
 form button:hover {
     background-color: #0056b3;
 }
 
+/* Stijl voor de tabel */
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
     background: #fff;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    overflow-x: auto;
 }
 
 table, th, td {
@@ -53,12 +64,24 @@ table, th, td {
 th, td {
     padding: 10px;
     text-align: left;
+    word-break: break-word; /* Zorgt ervoor dat lange woorden niet uit de tabel lopen */
 }
 
 th {
     background-color: #f4f4f4;
+    font-weight: bold;
 }
 
+td:nth-child(9) { /* Kolom "Status (Verleden/Actief)" */
+    font-weight: bold;
+    color: #007BFF;
+}
+
+td:nth-child(9):contains('Verlopen') {
+    color: #FF0000; /* Rood voor verlopen tenders */
+}
+
+/* Knoppenstijl voor verwijderen */
 .delete-btn {
     color: white;
     background-color: red;
@@ -70,4 +93,15 @@ th {
 
 .delete-btn:hover {
     background-color: darkred;
+}
+
+/* Responsieve ondersteuning */
+@media (max-width: 768px) {
+    table, th, td {
+        font-size: 12px;
+    }
+
+    form button {
+        font-size: 14px;
+    }
 }
