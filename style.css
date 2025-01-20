@@ -1,79 +1,73 @@
-// Italiaanse kerstwoorden voor het memoryspel
-const italianWords = [
-  "albero", "regalo", "Babbo Natale", "panettone", "presepe",
-  "stella", "campana", "neve", "candela", "angelo",
-  "albero", "regalo", "Babbo Natale", "panettone", "presepe",
-  "stella", "campana", "neve", "candela", "angelo",
-  "renna", "renna", "fiocco", "fiocco", "calza"
-];
-
-let flippedCards = [];
-let matchedCards = [];
-
-// Functie om de kaarten te schudden
-function shuffle(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #f9f9f9;
 }
 
-// Speelbord maken
-function createBoard() {
-  shuffle(italianWords);
-  const board = document.getElementById("game-board");
-  board.innerHTML = ""; // Bord leegmaken
-
-  italianWords.forEach((word, index) => {
-    const card = document.createElement("div");
-    card.classList.add("card");
-    card.dataset.name = word;
-
-    // Voorkant en achterkant van de kaart toevoegen
-    const front = document.createElement("div");
-    front.classList.add("front");
-
-    const back = document.createElement("div");
-    back.classList.add("back");
-    back.textContent = word; // Woord toevoegen op de achterkant
-
-    card.appendChild(front);
-    card.appendChild(back);
-
-    card.addEventListener("click", flipCard);
-    board.appendChild(card);
-  });
+h1 {
+    text-align: center;
+    color: #333;
 }
 
-// Kaart omdraaien
-function flipCard() {
-  if (this.classList.contains("flipped") || flippedCards.length >= 2) return;
-
-  this.classList.add("flipped");
-  flippedCards.push(this);
-
-  if (flippedCards.length === 2) {
-    setTimeout(checkMatch, 800);
-  }
+form {
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    background: #fff;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-// Controleren of kaarten matchen
-function checkMatch() {
-  const [card1, card2] = flippedCards;
-
-  if (card1.dataset.name === card2.dataset.name) {
-    matchedCards.push(card1, card2);
-  } else {
-    card1.classList.remove("flipped");
-    card2.classList.remove("flipped");
-  }
-
-  flippedCards = [];
-
-  if (matchedCards.length === italianWords.length) {
-    setTimeout(() => alert("🎉 Hai vinto! Buon Natale! 🎄"), 500);
-  }
+form input, form select, form textarea, form button {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
-// Start het spel
-createBoard();
+form button {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #0056b3;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #f4f4f4;
+}
+
+.delete-btn {
+    color: white;
+    background-color: red;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.delete-btn:hover {
+    background-color: darkred;
+}
