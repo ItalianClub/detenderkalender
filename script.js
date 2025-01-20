@@ -1,67 +1,71 @@
-/* Algemene styling */
-body {
-  font-family: 'Arial', sans-serif;
-  text-align: center;
-  background-color: #fefae0;
-  margin: 0;
-  padding: 0;
+const apiUrl = 'https://jouw-backend.onrender.com/tenders'; // Vervang met jouw Render-backend-URL
+const tenderForm = document.getElementById('tenderForm');
+const tenderTableBody = document.getElementById('tenderTableBody');
+
+// Ophalen van tenders
+async function fetchTenders() {
+    try {
+        const response = await fetch(apiUrl);
+        const tenders = await response.json();
+        renderTable(tenders);
+    } catch (error) {
+        console.error('Fout bij ophalen van tenders:', error);
+    }
 }
 
-h1 {
-  color: #d62828;
-  margin-top: 20px;
+// Tenders weergeven in de tabel
+function renderTable(tenders) {
+    tenderTableBody.innerHTML = '';
+    tenders.forEach(tender => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${tender.name}</td>
+            <td>${tender.client}</td>
+            <td>${tender.deadline}</td>
+            <td>${tender.status}</td>
+            <td>${tender.responsible}</td>
+            <td>${tender.notes}</td>
+            <td><button class="delete-btn" onclick="deleteTender('${tender._id}')">Verwijderen</button></td>
+        `;
+        tenderTableBody.appendChild(row);
+    });
 }
 
-p {
-  font-size: 1.2em;
-  color: #6c757d;
-  margin-bottom: 20px;
+// Tender toevoegen
+tenderForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const newTender = {
+        name: document.getElementById('name').value,
+        client: document.getElementById('client').value,
+        deadline: document.getElementById('deadline').value,
+        status: document.getElementById('status').value,
+        responsible: document.getElementById('responsible').value,
+        notes: document.getElementById('notes').value
+    };
+
+    try {
+        await fetch(apiUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newTender),
+        });
+        tenderForm.reset();
+        fetchTenders();
+    } catch (error) {
+        console.error('Fout bij toevoegen van tender:', error);
+    }
+});
+
+// Tender verwijderen
+async function deleteTender(id) {
+    try {
+        await fetch(`${apiUrl}/${id}`, { method: 'DELETE' });
+        fetchTenders();
+    } catch (error) {
+        console.error('Fout bij verwijderen van tender:', error);
+    }
 }
 
-/* Speelbord */
-#game-board {
-  display: grid;
-  grid-template-columns: repeat(5, 120px);
-  grid-gap: 10px;
-  justify-content: center;
-  margin: 0 auto;
-}
-
-.card {
-  position: relative;
-  width: 120px;
-  height: 120px;
-  cursor: pointer;
-  transform-style: preserve-3d;
-  transition: transform 0.6s;
-}
-
-.card.flipped {
-  transform: rotateY(180deg);
-}
-
-/* Voor- en achterkant van de kaart */
-.card .front,
-.card .back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden; /* Zorgt ervoor dat de achterkant niet in spiegelbeeld is */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 10px;
-  font-size: 1.2em;
-  font-weight: bold;
-}
-
-.card .front {
-  background-color: #f4a261;
-  color: transparent; /* Tekst verborgen aan de voorkant */
-}
-
-.card .back {
-  background-color: #2a9d8f;
-  color: white;
-  transform: rotateY(180deg); /* Alleen de achterkant wordt omgedraaid */
-}
+// Initialiseer de applicatie
+fetchTenders();
