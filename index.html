@@ -1,16 +1,48 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Memory di Natale</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tenderkalender</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>🎄 Memory di Natale 🎅</h1>
-  <p>Trova le coppie e impara le parole natalizie italiane!</p>
-  <div id="game-board"></div>
+    <h1>Tenderkalender</h1>
 
-  <script src="script.js"></script>
+    <!-- Formulier om een nieuwe tender toe te voegen -->
+    <form id="tenderForm">
+        <input type="text" id="name" placeholder="Tendernaam" required>
+        <input type="text" id="client" placeholder="Opdrachtgever" required>
+        <input type="date" id="deadline" required>
+        <select id="status" required>
+            <option value="In voorbereiding">In voorbereiding</option>
+            <option value="Ingediend">Ingediend</option>
+            <option value="Gewonnen">Gewonnen</option>
+            <option value="Verloren">Verloren</option>
+        </select>
+        <input type="text" id="responsible" placeholder="Verantwoordelijke">
+        <textarea id="notes" placeholder="Opmerkingen"></textarea>
+        <button type="submit">Toevoegen</button>
+    </form>
+
+    <!-- Tabel met bestaande tenders -->
+    <table>
+        <thead>
+            <tr>
+                <th>Tendernaam</th>
+                <th>Opdrachtgever</th>
+                <th>Deadline</th>
+                <th>Status</th>
+                <th>Verantwoordelijke</th>
+                <th>Opmerkingen</th>
+                <th>Acties</th>
+            </tr>
+        </thead>
+        <tbody id="tenderTableBody">
+            <!-- Dynamische inhoud komt hier -->
+        </tbody>
+    </table>
+
+    <script src="script.js"></script>
 </body>
 </html>
