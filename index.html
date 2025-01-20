@@ -13,6 +13,13 @@
     <form id="tenderForm">
         <input type="text" id="name" placeholder="Tendernaam" required>
         <input type="text" id="client" placeholder="Opdrachtgever" required>
+        <select id="businessUnit" required>
+            <option value="" disabled selected>Kies een Business Unit</option>
+            <option value="Crowd Support">Crowd Support</option>
+            <option value="Traffic Support">Traffic Support</option>
+            <option value="City 360">City 360</option>
+        </select>
+        <input type="number" id="orderValue" placeholder="Order Waarde (€)" required>
         <input type="date" id="deadline" required>
         <select id="status" required>
             <option value="In voorbereiding">In voorbereiding</option>
@@ -31,10 +38,13 @@
             <tr>
                 <th>Tendernaam</th>
                 <th>Opdrachtgever</th>
+                <th>Business Unit</th>
+                <th>Order Waarde (€)</th>
                 <th>Deadline</th>
                 <th>Status</th>
                 <th>Verantwoordelijke</th>
                 <th>Opmerkingen</th>
+                <th>Status (Verleden/Actief)</th>
                 <th>Acties</th>
             </tr>
         </thead>
